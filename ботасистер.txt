@@ -1,0 +1,113 @@
+import json
+
+# Обширный набор данных для бота, чтобы помочь пользователям с Solidity
+data = [
+    {
+        "question": "What is Solidity?",
+        "answer": (
+            "Solidity is a high-level programming language designed for implementing smart contracts on blockchain platforms, primarily Ethereum. "
+            "It is statically-typed and supports complex user-defined types, libraries, inheritance, and other features."
+        ),
+        "examples": [],
+        "tips": "Solidity is similar in syntax to JavaScript, so developers familiar with JS will find it easy to learn."
+    },
+    {
+        "question": "How do I declare a state variable in Solidity?",
+        "answer": (
+            "In Solidity, a state variable is declared outside of functions and is stored on the blockchain. You can declare a variable using its type and name. "
+            "For example, `uint public myNumber = 5;` declares a public unsigned integer variable with the initial value of 5."
+        ),
+        "examples": [
+            {
+                "code": "uint public myNumber = 5;",
+                "description": "Declares a public unsigned integer stored on the blockchain."
+            },
+            {
+                "code": "string private myText = 'Hello';",
+                "description": "Declares a private string variable."
+            }
+        ],
+        "tips": "Use the `public` keyword to automatically generate a getter function for your variable."
+    },
+    {
+        "question": "What is a smart contract?",
+        "answer": (
+            "A smart contract is a self-executing program on the blockchain, where the terms of the contract are encoded within its code. "
+            "It automatically enforces and executes the terms when specific conditions are met."
+        ),
+        "examples": [
+            {
+                "code": """
+                pragma solidity ^0.8.0;
+
+                contract SimpleStorage {
+                    uint public data;
+
+                    function setData(uint _data) public {
+                        data = _data;
+                    }
+
+                    function getData() public view returns (uint) {
+                        return data;
+                    }
+                }
+                """,
+                "description": "A basic smart contract that stores a single unsigned integer and allows users to set and get its value."
+            }
+        ],
+        "tips": "Smart contracts are immutable once deployed, so testing thoroughly before deployment is crucial."
+    },
+    {
+        "question": "How can I create a function in Solidity?",
+        "answer": (
+            "In Solidity, functions are created using the `function` keyword. Functions can have different visibility settings, such as `public`, `private`, `internal`, and `external`. "
+            "Functions can also be `pure`, `view`, or `payable`."
+        ),
+        "examples": [
+            {
+                "code": """
+                function add(uint a, uint b) public pure returns (uint) {
+                    return a + b;
+                }
+                """,
+                "description": "A pure function that takes two unsigned integers and returns their sum."
+            },
+            {
+                "code": """
+                function getData() public view returns (uint) {
+                    return data;
+                }
+                """,
+                "description": "A view function that returns the state variable `data`."
+            }
+        ],
+        "tips": (
+            "Use `pure` for functions that don’t read or modify the blockchain state, and `view` for functions that read but don’t modify it. "
+            "The `payable` modifier is required for functions that handle Ether transfers."
+        )
+    },
+    {
+        "question": "What is the difference between `public` and `private` variables?",
+        "answer": (
+            "In Solidity, `public` variables are accessible from outside the contract and automatically generate getter functions. "
+            "`private` variables can only be accessed from within the contract they are defined in, and do not generate getters."
+        ),
+        "examples": [
+            {
+                "code": "uint public publicVar = 1;",
+                "description": "A public state variable with automatic getter."
+            },
+            {
+                "code": "uint private privateVar = 2;",
+                "description": "A private state variable with restricted access."
+            }
+        ],
+        "tips": "Use `public` only when you want the variable accessible externally; otherwise, prefer `private` or `internal` for better encapsulation."
+    }
+]
+
+# Сохранение расширенного датасета в JSON-файл
+with open('solidity_knowledge_base.json', 'w') as f:
+    json.dump(data, f, indent=4)
+
+print("Extended dataset created and saved as solidity_knowledge_base.json")
